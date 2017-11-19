@@ -1,2 +1,3 @@
 .vscode
 venus/node_modules
+**/__pycache__

@@ -1,13 +1,13 @@
 #-*- coding: utf-8 -*-
 from flask_script import Manager, Server
-import application
+from moon.server import app
 
-manager = Manager(application.app)
-manager.add_command("server", Server())
+manager = Manager(app)
+manager.add_command("runserver", Server(app.config['HOST'], app.config['PORT']))
 
 @manager.shell
 def make_shell_context():
-    return dict(app=application.app)
+    return dict(app=app)
 
 if __name__ == "__main__":
     manager.run()
