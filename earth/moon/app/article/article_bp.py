@@ -7,11 +7,13 @@ from flask import jsonify
 from bson.json_util import dumps
 from bson import ObjectId
 import datetime
+from moon.app.util.wrapper import allow_cross_domain
 
 article_bp = Blueprint('article_bp', __name__)
 
 @article_bp.route('/', methods=['GET'])
 @article_bp.route('/list', methods=['GET'])
+@allow_cross_domain
 def list():
     articles = []
     for article in mongo.db.article.find({}):
@@ -19,6 +21,7 @@ def list():
     return dumps({'status': 200, 'exception': None, 'data': articles})
 
 @article_bp.route('/create', methods=['POST'])
+@allow_cross_domain
 def create():
     try:
         title = request.args.get('title', '')
@@ -48,6 +51,7 @@ def create():
     return dumps({'status': 200, 'exception': None, 'data': article})
 
 @article_bp.route('/edit', methods=['POST'])
+@allow_cross_domain
 def edit():
     try:
         id = request.args.get('title', '')
@@ -72,6 +76,7 @@ def edit():
     return dumps({'status': 200, 'exception': None, 'data': article})
 
 @article_bp.route('/detail/<id>', methods=['GET'])
+@allow_cross_domain
 def detail(id=None):
     if id is None:
         return dumps({'status': 412, 'exception': None, 'data': article})
