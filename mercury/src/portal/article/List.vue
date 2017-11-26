@@ -9,11 +9,14 @@
                 </li>
             </ul>
         </div>
+        <pagination></pagination>
     </div>
+    
 </template>
 
 <script>
-import http from '../../api/fetch'
+import Pagination from '@/components/Pagination'
+import http from '@/api/fetch'
 export default {
     name: 'ArticleList',
     data () {
@@ -23,6 +26,7 @@ export default {
             error: null,
             pageIndex: 1,
             pageSize: 10,
+            pageNo: 5
         }
     },
     created () {
@@ -43,6 +47,9 @@ export default {
                 this.error = error;
             });
         }
+    },
+    components: {
+        Pagination
     }
 }
 </script>
