@@ -9,7 +9,7 @@
                 </li>
             </ul>
         </div>
-        <pagination></pagination>
+        <pagination :page-index.sync="pageIndex" :page-size="pageSize" :page-count="pageCount"></pagination>
     </div>
     
 </template>
@@ -25,21 +25,26 @@ export default {
             articles: null,
             error: null,
             pageIndex: 1,
-            pageSize: 10,
-            pageNo: 5
+            pageSize: 1,
+            pageCount: 1
         }
     },
     created () {
         this.fetchData();
     },
     watch: {
-        '$route': 'fetchData'
+        '$route': 'fetchData',
+        'pageIndex': 'fetchData'
     },
     methods: {
         fetchData () {
             this.error = this.articles = null;
             this.loading = true;
-            http.fetchGet('http://127.0.0.1:5000/article/list', '').then(res => {
+            let param = {
+                'pageIndex': this.pageIndex,
+                'pageSize': this.pageSize
+            };
+            http.fetchGet('http://127.0.0.1:5000/article/list', param).then(res => {
                 this.loading = false;
                 this.articles = res.data;
             }).catch(error => {

@@ -13,10 +13,14 @@ article_bp = Blueprint('article_bp', __name__)
 
 @article_bp.route('/', methods=['GET'])
 @article_bp.route('/list', methods=['GET'])
+@article_bp.route('/list/', methods=['GET'])
 @allow_cross_domain
 def list():
+    pageIndex = request.args.get('pageIndex', 1)
+    pageSize = request.args.get('pageSize', 5)
+    print(request.args)
     articles = []
-    for article in mongo.db.article.find({}):
+    for article in mongo.db.article.find({}).limit(pageSize).skip(pageSize * (pageIndex - 1)):
         articles.append(article)
     return dumps({'status': 200, 'exception': None, 'data': articles})
 
@@ -24,10 +28,10 @@ def list():
 @allow_cross_domain
 def create():
     try:
-        title = request.args.get('title', '')
-        description = request.args.get('description', '')
-        body = request.args.get('body', '')
-        tags = request.args.get('tags', [])
+        title = request.form.get('title', '')
+        description = request.form.get('description', '')
+        body = request.form.get('body', '')
+        tags = request.form.get('tags', [])
         icon = request.files['icon']
         clicks = 0
         likes = 0
