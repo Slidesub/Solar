@@ -4,7 +4,7 @@ import qs from 'qs' // POST 参数序列化
 export default {
     fetchGet (url, params) {
         return new Promise((resolve, reject) => {
-            axios.get(url, params).then(res => {
+            axios.get(url, {params}).then(res => {
                 resolve(res.data)
             });
         }).catch(error => {

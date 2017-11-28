@@ -2,13 +2,13 @@
     <div class="pagination">
         <ul>
             <li>
-                <button :disabled="this.pageIndex == 1" @click="prev"><</button>
+                <button :disabled="this.index == 1" @click="prev"><</button>
             </li>
-            <li>{{pageIndex}}</li>
+            <li>{{index}}</li>
             <li>...</li>
             <li>{{pageCount}}</li>
             <li>
-                <button :disabled="this.pageIndex == this.pageCount" @click="next">></button>
+                <button :disabled="this.index == this.pageCount" @click="next">></button>
             </li>
         </ul>
     </div>
@@ -36,18 +36,22 @@ export default {
     },
     data () {
         return {
-
+            index: this.pageIndex
         }
     },
     methods: {
         prev () {
-            this.pageIndex --;
+            this.index --;
+            console.log(this.index);
+            this.$emit("update:pageIndex", this.index);
         },
         next () {
-            this.pageIndex ++;
+            this.index ++;
+            this.$emit("update:pageIndex", this.index);
         },
         go (index) {
-            this.pageIndex = index;
+            this.index = index;
+            this.$emit("update:pageIndex", this.index);
         }
     },
     computed: {

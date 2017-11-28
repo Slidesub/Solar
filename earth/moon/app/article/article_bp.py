@@ -7,22 +7,22 @@ from flask import jsonify
 from bson.json_util import dumps
 from bson import ObjectId
 import datetime
+import math
 from moon.app.util.wrapper import allow_cross_domain
 
 article_bp = Blueprint('article_bp', __name__)
 
 @article_bp.route('/', methods=['GET'])
-@article_bp.route('/list', methods=['GET'])
 @article_bp.route('/list/', methods=['GET'])
 @allow_cross_domain
 def list():
-    pageIndex = request.args.get('pageIndex', 1)
-    pageSize = request.args.get('pageSize', 5)
-    print(request.args)
+    pageIndex = int(request.args.get('pageIndex', 1))
+    pageSize = int(request.args.get('pageSize', 5))
     articles = []
     for article in mongo.db.article.find({}).limit(pageSize).skip(pageSize * (pageIndex - 1)):
         articles.append(article)
-    return dumps({'status': 200, 'exception': None, 'data': articles})
+    pageCount = math.ceil(mongo.db.article.find({}).count() / pageSize);
+    return dumps({'status': 200, 'exception': None, 'data': articles, 'pageCount': pageCount})
 
 @article_bp.route('/create', methods=['POST'])
 @allow_cross_domain
