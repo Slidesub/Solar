@@ -42,7 +42,6 @@ export default {
     methods: {
         prev () {
             this.index --;
-            console.log(this.index);
             this.$emit("update:pageIndex", this.index);
         },
         next () {

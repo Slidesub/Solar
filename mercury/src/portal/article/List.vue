@@ -44,7 +44,6 @@ export default {
                 'pageIndex': this.pageIndex,
                 'pageSize': this.pageSize
             };
-            console.log(param);
             http.fetchGet('http://127.0.0.1:5000/article/list/', param).then(res => {
                 this.loading = false;
                 this.articles = res.data;
