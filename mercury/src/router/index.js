@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/portal/Index'
 import ArticleList from '@/portal/article/List'
+import ArticleEdit from '@/portal/article/Edit'
 
 Vue.use(Router)
 
@@ -14,8 +15,14 @@ export default new Router({
     },
     {
       path: '/article/list',
-      name: 'Article',
+      name: 'ArticleList',
       component: ArticleList
+    },
+    {
+      path: '/article/edit',
+      name: 'ArticleEdit',
+      component: ArticleEdit
     }
   ]
 })
+
