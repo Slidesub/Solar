@@ -1,27 +1,33 @@
 <template>
     <div class="article-create">
         <form>
-            <div class="row"><input type="text" v-model='title' placeholder="title"/></div>
             <div class="row">
-                <tag :option="options"></tag>
+                <input type="text" v-model='title' placeholder="title"/>
             </div>
-            <div class="row"><input type="file" /></div>
             <div>
-                <simple-editor v-model='body' ></simple-editor>
-                <div><input type="text" v-model='body'/></div>
+                <selection :options="options" v-model='tags'></selection>
             </div>
+            <div>
+                <uploader></uploader>
+            </div>
+            <div>
+                <editor v-model='body'></editor>
+            </div>
+            <div><input type="text" v-model='body'/></div>
+            <div><input type="text" v-model='tags'/></div>
         </form>
     </div>
 </template>
 <script>
-import SimpleEditor from '@/components/SimpleEditor';
-import Tag from '@/components/Tag';
+import Editor from '@/components/Editor';
+import Selection from '@/components/Selection';
+import Uploader from '@/components/Uploader';
 export default {
     data () {
         return {
             title: '',
             icon: '',
-            tags: '',
+            tags: 'b',
             body: '',
             options: [
                 {text: 'one', value: 'a'},
@@ -34,7 +40,7 @@ export default {
 
     },
     components: {
-        SimpleEditor, Tag
+        Editor, Selection, Uploader
     }
 }
 </script>

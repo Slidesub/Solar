@@ -6,7 +6,7 @@
 <script>
 import SimpleMDE from 'simplemde'
 export default {
-    name: 'SimpleEditor',
+    name: 'Editor',
     model: {
         prop: 'value',
         event: 'input'
@@ -27,7 +27,7 @@ export default {
     },
     mounted () {
         const configs = {
-            element: this.$el.firstElementChild,
+            element: this.$el.querySelector('textarea'),
             initialValue: this.value,
             autofocus: true,
             blockStyles: {
