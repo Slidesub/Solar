@@ -15,6 +15,10 @@
             </div>
             <div><input type="text" v-model='body'/></div>
             <div><input type="text" v-model='tags'/></div>
+            <div>
+                <button>save</button>
+                <button>publish</button>
+            </div>
         </form>
     </div>
 </template>
