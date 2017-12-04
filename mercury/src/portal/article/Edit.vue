@@ -17,7 +17,7 @@
             <div><input type="text" v-model='tags'/></div>
             <div>
                 <button>save</button>
-                <button>publish</button>
+                <button @click="publish">publish</button>
             </div>
         </form>
     </div>
@@ -26,6 +26,7 @@
 import Editor from '@/components/Editor';
 import Selection from '@/components/Selection';
 import Uploader from '@/components/Uploader';
+import http from '@/api/fetch';
 export default {
     data () {
         return {
@@ -40,8 +41,30 @@ export default {
             ]
         }
     },
+    created () {
+        this.fetchData();
+    },
     methods: {
-
+        fetchData () {
+            http.fetchGet('http://127.0.0.1:5000/tag/list/', {}).then(res => {
+                this.options = res.data;
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        publish () {
+            let data = {
+                title: this.title,
+                icon: this.icon,
+                tags: this.tags,
+                body: this.body
+            }
+            http.fetchPost('http://127.0.0.1:5000/article/edit/', data).then(res => {
+                this.$router.push({name: 'ArticleList'});
+            }).catch(e => {
+                console.log(e);
+            });
+        }
     },
     components: {
         Editor, Selection, Uploader

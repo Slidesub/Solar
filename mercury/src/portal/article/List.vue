@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
-import http from '@/api/fetch'
+import Pagination from '@/components/Pagination';
+import http from '@/api/fetch';
 export default {
     name: 'ArticleList',
     data () {

@@ -67,7 +67,7 @@
             uploadFile (file) {
                 let form = new FormData();
                 form.append(file);
-                http.fetchPost(url, form).then(res => {
+                http.fetchPost("http://127.0.0.1:5000/file/upload/", form).then(res => {
                     this.files.push(file);
                 }).catch(error => {
                     
