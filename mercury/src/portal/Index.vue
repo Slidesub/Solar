@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <header-tag></header-tag>
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -21,18 +22,24 @@
 </template>
 
 <script>
+import HeaderTag from '@/components/Header';
 export default {
   name: 'Index',
   data () {
     return {
       msg: 'Welcome!'
     }
+  },
+  components: {
+    HeaderTag
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+
+
 h1, h2 {
   font-weight: normal;
 }
