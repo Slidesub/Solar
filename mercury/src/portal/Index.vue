@@ -1,6 +1,32 @@
 <template>
   <div class="hello">
     <header-tag></header-tag>
+    <center>
+      <h1>Welcome!</h1>
+      <p>Please <a href="">Sing in</a> or <a href="">Sign up</a>!</p>
+    </center>
+    <dl>
+      <dt style="font-size: 1rem;">推荐<a href="" style="font-size: 0.8rem;">more!</a></dt>
+      <dd v-for="article in articles">
+        <img src="" />
+        <span>{{article}}</span>
+      </dd>
+    </dl>
+    <dl>
+      <dt style="font-size: 1rem;">热门<a href="" style="font-size: 0.8rem;">more!</a></dt>
+      <dd v-for="article in articles">
+        <img src="" />
+        <span>{{article}}</span>
+      </dd>
+    </dl>
+    <dl>
+      <dt style="font-size: 1rem;">最新<a href="" style="font-size: 0.8rem;">more!</a></dt>
+      <dd v-for="article in articles">
+        <img src="" />
+        <span>{{article}}</span>
+      </dd>
+    </dl>
+
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -23,15 +49,18 @@
 
 <script>
 import HeaderTag from '@/components/Header';
+import Player from "@/components/Player";
 export default {
   name: 'Index',
   data () {
     return {
-      msg: 'Welcome!'
+      msg: 'Welcome!',
+      articles: ['1', "2"]
     }
   },
   components: {
-    HeaderTag
+    HeaderTag,
+    Player
   }
 }
 </script>
