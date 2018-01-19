@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>unicome.org</title>
+    <link rel="stylesheet" href="/stylesheets/user/index.css">
+</head>
+<body class="index-body">
+    <!--
+    <header>
+        <ul class="header">
+            {% for i in [1,2,3,4,5,6,7,8,9,10] %}
+            <li class="bg-color-{{i}}"></li>
+            {% endfor %}
+        </ul>
+    </header>
+    -->
+    <main>
+        <!--<section style="background: url('https://api.i-meto.com/bing?new') no-repeat center center; background-size: cover; height:50vh;"></section>-->
+        <section>
+            <div style="text-align:center;"><h1>UNICOME.org MS</h1></div>
+            <form action="/user/signin" method="POST" class="index-login_form">
+                <input class="index-input_box " type="text" name="username" placeholder="email" />
+                <input class="index-input_box " type="password" name="password" placeholder="password" />
+                <input class="index-input_btn" type="submit" value="signin" />
+                <!--
+                <hr style="width: 100%; border-style: inset;" />
+                <div style="margin: 5px 0; display: flex;justify-content: space-around;">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                </div>
+                -->
+            </form>
+        </section>
+    </main>
+    <script>
+        /*
+        if (window.XMLHttpRequest) {
+            var ajax = new XMLHttpRequest();
+        } else {
+            var ajax = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        ajax.open("GET", "https://api.i-meto.com/bing?new", true);
+        ajax.send(null);
+        ajax.onreadystatechange = function() {
+            if (ajax.readyState === 4 && ajax.status === 200) {
+                document.getElementById("main").style.backgroundImage="url(" + ajax.responseText + ")";
+            }
+        }
+        */
+    </script>
+</body>
+</html>

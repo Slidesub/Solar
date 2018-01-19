@@ -6,9 +6,10 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const index = require('./routes/index')
-const users = require('./routes/users')
+const index = require('./src/routes/index')
+const user = require('./src/routes/user')
 
+app.keys = ['unicome.org']
 // error handler
 onerror(app)
 
@@ -20,8 +21,13 @@ app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
+/*
 app.use(views(__dirname + '/views', {
   extension: 'pug'
+}))
+*/
+app.use(views(__dirname + '/views', {
+  map: {html: 'swig'}
 }))
 
 // logger
@@ -34,7 +40,7 @@ app.use(async (ctx, next) => {
 
 // routes
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(user.routes(), user.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
