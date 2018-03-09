@@ -1,21 +1,14 @@
 const router = require('koa-router')()
-const userCtrl = require("../controllers/userCtrl")
+const userCtrl = require('../ctrls/user-ctrl')
+const User = require('../models/user-model')
 
-router.prefix('/user')
+router.prefix('/users')
 
 router.get('/', async (ctx, next) => {
-    await ctx.render('user/index', {})
+    console.log('+++++++')
+    console.log(ctx.state.user)
+    let users = await User.find({});
+    ctx.body = {users: users}
 })
 
-router.get('/bar', function (ctx, next) {
-  ctx.body = 'this is a users/bar response'
-})
-
-router.post('/signin', userCtrl.signin)
-
-router.get('/dash', async (ctx, next) => {
-    await ctx.render('user/dash', {
-      user: ctx.cookies.get('user')
-    })
-})
 module.exports = router

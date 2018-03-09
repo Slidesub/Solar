@@ -5,11 +5,14 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const mongoose = require('mongoose')
+const config = require('./config')
+const koajwt = require('koa-jwt');
 
 const index = require('./src/routes/index')
 const user = require('./src/routes/user')
+const article = require('./src/routes/article.route')
 
-app.keys = ['unicome.org']
 // error handler
 onerror(app)
 
@@ -21,14 +24,17 @@ app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
-/*
-app.use(views(__dirname + '/views', {
-  extension: 'pug'
+// app.use(views(__dirname + '/views', {
+//   extension: 'pug'
+// }))
+app.use(views(__dirname + '/src/views', {
+  map: {
+    html: 'nunjucks'
+  }
 }))
-*/
-app.use(views(__dirname + '/views', {
-  map: {html: 'swig'}
-}))
+
+// mongoose
+mongoose.connect(config.database)
 
 // logger
 app.use(async (ctx, next) => {
@@ -37,10 +43,20 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
-
+// jwt
+// app.use(koajwt({secret: config.secret, key: 'user', debug: true}).unless({
+//   path: [
+//     /^\/favicon.ico/,
+//     /^\/signin/,
+//     /^\/signup/,
+//     /^\/passwd/,
+//     /^\/articles\/edit/,
+//   ]
+// }))
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(user.routes(), user.allowedMethods())
+app.use(article.routes(), article.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

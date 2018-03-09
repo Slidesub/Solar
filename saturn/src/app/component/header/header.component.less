@@ -1,0 +1,21 @@
+@bg-colors: #12A89D, #652D90, #F7941D, #BF1E2E, #8C6238, #F1592A, #B3B5B4, #25AAE2, #9EB83B, #808281;
+
+.generate-column(@counter) when (@counter >= 0) {
+    .bg-color-@{counter} {
+        width: 10%;
+        height: 100%;
+        background-color: extract(@bg-colors, @counter + 1)
+    }
+    .generate-column(@counter - 1);
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    .generate-column(10);
+}

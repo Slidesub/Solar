@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/plugins/codemirror-5.34.0/lib/codemirror.css">
+    <link rel="stylesheet" href="/plugins/codemirror-5.34.0/theme/yeti.css">
+</head>
+<body>
+    <form id="articleForm">
+        <div>
+            <input type="hidden" name="id" value="{{ data._id }}">
+        </div
+        <div>
+            <input type="text" name="title" placeholder="title" value="{{ data.title }}">
+        </div>
+        <div style="border: 1px solid #ddd;font: 13px;">
+            <textarea type="text" name="body" id="body">{{ data.body }}</textarea>
+        </div>
+    </form>
+    <button id="publishBtn">publish</button>
+
+<script src="/javascripts/jquery-3.3.1.min.js"></script>
+<script src="/plugins/codemirror-5.34.0/lib/codemirror.js"></script>
+<script src="/plugins/codemirror-5.34.0/mode/markdown/markdown.js"></script>
+<script>
+    $(function() {
+        let codeMirror = CodeMirror.fromTextArea($("#body")[0], {
+            lineNumbers: true,
+            mode: 'markdown',
+            highlightFormatting: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            theme: 'yeti'
+        });
+        $("#publishBtn").click(function () {
+            $('#body').text(codeMirror.getValue());
+            $.ajax({
+                url: '/articles/edit',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': sessionStorage.getItem('token'),
+                },
+                data: $("#articleForm").serializeArray(),
+                dataType: 'JSON',
+                type: 'PUT',
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
