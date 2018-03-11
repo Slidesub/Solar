@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestOptions, RequestOptionsArgs, RequestMethod, Http, Request, Headers } from '@angular/http';
+import { RequestOptions, RequestOptionsArgs, RequestMethod, Http, Request, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -23,8 +23,8 @@ export class HttpService {
     relativeUrl: string,
     body?: string,
     options?: RequestOptionsArgs): Observable<any> {
-      let url = this.rootUrl + relativeUrl;
-      let requestOptions = new RequestOptions(Object.assign({
+      const url = this.rootUrl + relativeUrl;
+      const requestOptions = new RequestOptions(Object.assign({
         method: method,
         url: url,
         body: body,

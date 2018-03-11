@@ -25,3 +25,26 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+---
+
+## Observales(观测)
+> 异步、事件处理、多值传递
+
+* publisher: 发布者
+> 发布值（消息，事件等）， 当被订阅的时候， 函数才会被执行
+* subscriber: 订阅者
+> 接受值
+
+## 基本用法
+
+* 创建Observable实例， 返回Subscription对象
+* 调用Subscription对象的subscribe()
+> next, error, complete
+
+
+
+
+
+

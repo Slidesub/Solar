@@ -1,12 +1,12 @@
 export class ArticleModel {
-    articleId: string;
+    id: number;
     title: string;
+    desc: string;
     body: string;
     createDate: Date;
     updateDate: Date;
     createBy: String;
     updateBy: String;
-    checked: boolean;
 }
 
 export class ArticlePagination {

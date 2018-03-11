@@ -3,6 +3,9 @@ import { HttpService } from '../../service/http.service';
 import { Http } from '@angular/http';
 import { ArticlePagination } from './article.model';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/timeout';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ArticleService {
@@ -32,7 +35,7 @@ export class ArticleService {
       .get(`portal/articles?searchContent=${searchContent}&page=${page}&size=${size}`)
       .timeout(15000)
       .map((response: Response) => {
-        return response.json().data;
+        return response.json();
       })
       .catch(this.handleError);
   }
@@ -41,7 +44,7 @@ export class ArticleService {
     return this._httpService.delete(`portal/articles?companyIds=${ids}`)
     .timeout(15000)
     .map((response: Response) => {
-      return response.json().message;
+      return response.json();
     })
     .catch(this.handleError);
   }
