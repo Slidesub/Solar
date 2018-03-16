@@ -7,7 +7,7 @@ const HomeRoutes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', redirectTo: 'guidance', pathMatch: 'full' },
+      { path: '', redirectTo: 'article', pathMatch: 'full' },
       { path: 'guidance', loadChildren: './guidance/guidance.module#GuidanceModule' },
       { path: 'article', loadChildren: './article/article.module#ArticleModule' },
       { path: '**', redirectTo: 'guidance' }

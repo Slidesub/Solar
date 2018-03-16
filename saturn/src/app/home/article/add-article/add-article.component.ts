@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ArticleModel } from '../article.model';
+import { Tag } from '../../tag/tag.model';
+import { ArticleService } from '../article.service';
 
 @Component({
   selector: 'app-add-article',
@@ -12,8 +14,10 @@ export class AddArticleComponent implements OnInit {
   title: string;
   articleFrom: FormGroup;
   articleModel: ArticleModel;
+  tags: Tag[];
+  selectedTags: number[];
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private _articleService: ArticleService) {
   }
 
   ngOnInit() {
@@ -22,12 +26,20 @@ export class AddArticleComponent implements OnInit {
     this.articleModel.title = '文章1';
     this.articleModel.desc = '';
     this.buildForm();
+    this.tags = [];
+    this.selectedTags = [];
+    for (let i = 0; i < 10; i++) {
+      let tag = new Tag();
+      tag.id = i + 1;
+      tag.name = 'name-' + tag.id;
+      this.tags.push(tag);
+    }
   }
 
   buildForm() {
     this.articleFrom = this._formBuilder.group({
       title: [
-        this.articleModel.title, [ Validators.required, Validators.email ]
+        this.articleModel.title, [ Validators.required ]
       ],
       desc: [
         this.articleModel.desc, [ Validators.required ]
@@ -38,13 +50,11 @@ export class AddArticleComponent implements OnInit {
   getFormControl(name) {
     return this.articleFrom.controls[name];
   }
+
   submitForm() {
-    for (const key in this.articleFrom.controls) {
-      if (this.articleFrom.controls.hasOwnProperty(key)) {
-        this.articleFrom.controls[key].markAsDirty();
-      }
-    }
-    console.log(this.articleFrom.value);
+    this._articleService.addArticle(this.articleFrom.value).subscribe(response => {
+      console.log(response);
+    });
   }
 
 }

@@ -6,6 +6,8 @@ import { ListArticleComponent } from './list-article/list-article.component';
 import { AddArticleComponent } from './add-article/add-article.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { ArticleService } from './article.service';
+
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
     ArticleRouteModule
   ],
   exports: [ ],
+  providers: [ ArticleService ],
   declarations: [ ArticleComponent, ListArticleComponent, AddArticleComponent ]
 })
 

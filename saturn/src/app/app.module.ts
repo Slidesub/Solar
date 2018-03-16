@@ -5,6 +5,10 @@ import { AppComponent } from './app.component';
 import { AppRouteModule } from './app.route';
 import { HomeModule } from './home/home.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpService } from './service/http.service';
+import { ArticleService } from './home/article/article.service';
+import { Http, HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -13,7 +17,10 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRouteModule,
+    HttpModule,
     HomeModule,
     NgZorroAntdModule.forRoot()
   ],

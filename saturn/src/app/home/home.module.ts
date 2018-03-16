@@ -5,6 +5,8 @@ import { HomeComponent } from './home.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { HeaderComponent } from '../component/header/header.component';
 import { ArticleModule } from './article/article.module';
+import { HttpService } from '../service/http.service';
+
 
 @NgModule({
   imports: [
@@ -17,7 +19,7 @@ import { ArticleModule } from './article/article.module';
     HomeComponent
   ],
   declarations: [ HomeComponent, HeaderComponent ],
-  providers: [ ]
+  providers: [ HttpService ]
 })
 
 export class HomeModule { }

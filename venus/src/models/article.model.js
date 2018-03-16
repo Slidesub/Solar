@@ -13,27 +13,32 @@ const ArticleSchema = new Schema({
         unique: false,
         require: false
     },
-    // tags : {
-    //     type: [ObjectId],
-    //     unique: false,
-    //     require: false
-    // },
+    tags : {
+        type: [Schema.Types.ObjectId],
+        unique: false,
+        require: false
+    },
     icon : {
         type: String,
         unique: false,
         require: false
     },
-    author: {
+    created_by: {
         type: Schema.Types.ObjectId,
         unique: false,
         require: false
     },
-    create_at: {
+    updated_by: {
+        type: Schema.Types.ObjectId,
+        unique: false,
+        require: false
+    },
+    created_at: {
         type: Date,
         unique: false,
         require: false
     },
-    update_at: {
+    updated_at: {
         type: Date,
         unique: false,
         require: false,

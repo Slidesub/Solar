@@ -12,8 +12,16 @@ export class ArticleService {
 
   constructor(private _httpService: HttpService, public http: Http) { }
 
+  list(): Observable<any> {
+    return this._httpService.get(`api/articles`)
+    .timeout(15000)
+    .map((response: Response) => {
+      return response;
+    })
+    .catch(this.handleError);
+  }
   addArticle(article) {
-    return this._httpService.post(`portal/articles`, article)
+    return this._httpService.post(`api/articles`, article)
     .timeout(15000)
     .map((response: Response) => {
       return response.json();
