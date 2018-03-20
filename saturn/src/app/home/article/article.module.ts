@@ -7,7 +7,8 @@ import { AddArticleComponent } from './add-article/add-article.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ArticleService } from './article.service';
-
+import { MdPipe } from '../../pipe/md.pipe';
+import { UploaderComponent } from '../../component/uploader/uploader.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { ArticleService } from './article.service';
   ],
   exports: [ ],
   providers: [ ArticleService ],
-  declarations: [ ArticleComponent, ListArticleComponent, AddArticleComponent ]
+  declarations: [ ArticleComponent, ListArticleComponent, AddArticleComponent, MdPipe, UploaderComponent ]
 })
 
 export class ArticleModule { }

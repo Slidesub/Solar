@@ -7,18 +7,21 @@ import { HomeModule } from './home/home.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from './service/http.service';
-import { ArticleService } from './home/article/article.service';
 import { Http, HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpModule,
+    HttpClientModule,
     AppRouteModule,
     HttpModule,
     HomeModule,

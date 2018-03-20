@@ -1,10 +1,10 @@
 export class ArticleModel {
-    id: number;
+    id: string;
     title: string;
     desc: string;
     icon: any;
+    tags: string[];
     body: string;
-    tags: number[];
     created_at: Date;
     updated_at: Date;
     created_by: String;

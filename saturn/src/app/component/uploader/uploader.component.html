@@ -1,0 +1,9 @@
+<nz-upload class="avatar-uploader"
+    nzAction="{{uploadUrl}}"
+    nzName="icon"
+    [nzShowUploadList]="false"
+    [nzBeforeUpload]="beforeUpload"
+    (nzChange)="handleChange($event)">
+    <i *ngIf="!icon" class="anticon anticon-plus avatar-uploader-trigger"></i>
+    <img *ngIf="icon" [src]="icon" class="avatar">
+</nz-upload>

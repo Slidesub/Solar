@@ -8,17 +8,25 @@ const ArticleSchema = new Schema({
         unique: false,
         require: false
     },
-    body: {
+    icon : {
         type: String,
         unique: false,
         require: false
     },
     tags : {
+<<<<<<< Updated upstream
         type: [Schema.Types.ObjectId],
         unique: false,
         require: false
     },
     icon : {
+=======
+        type: [ Schema.Types.ObjectId ],
+        unique: false,
+        require: false
+    },
+    body: {
+>>>>>>> Stashed changes
         type: String,
         unique: false,
         require: false
@@ -51,12 +59,12 @@ const ArticleSchema = new Schema({
 //     next();
 // });
 
-ArticleSchema.statics.findOne2Html = async function (params) {
-    let that = this;
-    let article = await that.findOne(params);
-    if (article) {
-        article.body = markdown.toHTML(article.body);
-    }
-    return article;
-}
+// ArticleSchema.statics.findOne2Html = async function (params) {
+//     let that = this;
+//     let article = await that.findOne(params);
+//     if (article) {
+//         article.body = markdown.toHTML(article.body);
+//     }
+//     return article;
+// }
 module.exports = mongoose.model('Article', ArticleSchema);

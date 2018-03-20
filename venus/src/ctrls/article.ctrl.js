@@ -1,6 +1,8 @@
 const Article = require('../models/article.model')
+const fs = require('fs');
 
 class ArticleCtrl {
+<<<<<<< Updated upstream
     // static async save(ctx) {
     //     let result = {};
     //     let data = ctx.request.body;
@@ -9,6 +11,55 @@ class ArticleCtrl {
     //         title: data.title,
     //         body: data.body,
     //     };
+=======
+    static async upload(ctx) {
+        result = {};
+        const file = ctx.request.body.files.file;
+        const reader = fs.createReadStream(file.path);
+        const writer = fs.createWriteStream(path.join(os.tmpdir(), Math.random().toString()));
+        reader.pipe(stream);
+        console.log('upload %s -> %s', file.name, stream.path);
+        result.status = 200;
+        result.msg = 'success';
+        result.data = stream.path;        
+        return result;
+    }
+
+    static async list(ctx) {
+        let result = {};
+        let articles = await Article.find();
+        result.status = 200;
+        result.msg = 'success';
+        result.data = articles;
+        return result;
+    }
+
+    static async save(ctx) {
+        let result = {};
+        let data = ctx.request.body;
+        let id = data.id || '';
+        let doc = {
+            title: data.title,
+            body: data.body,
+            icon: data.icon,
+            // tags: data.tags,
+            created_at: Date.now(),
+        };
+        let article = await Article.create(doc);
+        result.status = 200;
+        result.msg = 'success';
+        result.data = article;
+        return result;
+    }
+    static async update2(ctx) {
+        let result = {};
+        let data = ctx.request.body;
+        let id = data.id || '';
+        let doc = {
+            title: data.title,
+            body: data.body,
+        };
+>>>>>>> Stashed changes
 
     //     let article = null;
     //     if (id === '') {
@@ -18,6 +69,7 @@ class ArticleCtrl {
     //         article = await Article.update({_id: data.id}, doc);
     //     }
 
+<<<<<<< Updated upstream
     //     if (article) {
     //         result.code = 1;
     //         result.msg = 'save success';
@@ -38,6 +90,15 @@ class ArticleCtrl {
         } else {
             result.code = -1;
             result.msg = 'list failed';
+=======
+        if (article) {
+            result.code = 1;
+            result.msg = 'save success';
+            result.data = article;
+        } else {
+            result.code = -1;
+            result.msg = 'save failed';
+>>>>>>> Stashed changes
         }
         return result;
     }

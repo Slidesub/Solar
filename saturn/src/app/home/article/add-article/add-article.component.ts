@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ArticleModel } from '../article.model';
 import { Tag } from '../../tag/tag.model';
 import { ArticleService } from '../article.service';
+import { UploaderComponent } from '../../../component/uploader/uploader.component';
 
 @Component({
   selector: 'app-add-article',
   templateUrl: './add-article.component.html',
   styleUrls: ['./add-article.component.less']
 })
-export class AddArticleComponent implements OnInit {
+export class AddArticleComponent implements OnInit, AfterViewInit {
 
   title: string;
   articleFrom: FormGroup;
   articleModel: ArticleModel;
   tags: Tag[];
   selectedTags: number[];
+  @ViewChild(UploaderComponent)
+  private uploaderComponent: UploaderComponent;
 
   constructor(private _formBuilder: FormBuilder, private _articleService: ArticleService) {
   }
@@ -36,6 +39,10 @@ export class AddArticleComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+
+  }
+
   buildForm() {
     this.articleFrom = this._formBuilder.group({
       title: [
@@ -43,7 +50,14 @@ export class AddArticleComponent implements OnInit {
       ],
       desc: [
         this.articleModel.desc, [ Validators.required ]
+      ],
+      body: [
+        this.articleModel.body, [ ]
+      ],
+      icon: [
+        this.articleModel.icon, []
       ]
+
     });
   }
 
@@ -55,6 +69,14 @@ export class AddArticleComponent implements OnInit {
     this._articleService.addArticle(this.articleFrom.value).subscribe(response => {
       console.log(response);
     });
+    
+    for (const key in this.articleFrom.controls) {
+      if (this.articleFrom.controls.hasOwnProperty(key)) {
+        this.articleFrom.controls[key].markAsDirty();
+      }
+    }
+    this.articleFrom.value.icon = this.uploaderComponent.icon;
+    console.log(this.articleFrom.value);
   }
 
 }
