@@ -1,4 +1,4 @@
-let User = require('../models/user-model');
+let User = require('../models/user.model');
 
 class UserCtrl {
     static async signin(ctx, next) {

@@ -18,7 +18,7 @@ export class ArticleService {
     .map((response: Response) => {
       return response;
     })
-    .catch(this.handleError);
+    .catch(this._httpService.handleError);
   }
   addArticle(article) {
     return this._httpService.post(`api/articles`, article)
@@ -26,7 +26,7 @@ export class ArticleService {
     .map((response: Response) => {
       return response.json();
     })
-    .catch(this.handleError);
+    .catch(this._httpService.handleError);
   }
 
   updateArticle (article: any, articleId) {
@@ -35,7 +35,7 @@ export class ArticleService {
       .map((response: Response) => {
         return response.json();
       })
-      .catch(this.handleError);
+      .catch(this._httpService.handleError);
   }
 
   getArticle(page, size, searchContent): Observable<ArticlePagination> {
@@ -45,7 +45,7 @@ export class ArticleService {
       .map((response: Response) => {
         return response.json();
       })
-      .catch(this.handleError);
+      .catch(this._httpService.handleError);
   }
 
   deleteArticle(ids): Observable<any[]> {
@@ -54,23 +54,7 @@ export class ArticleService {
     .map((response: Response) => {
       return response.json();
     })
-    .catch(this.handleError);
+    .catch(this._httpService.handleError);
   }
 
-
-  public handleError(error: any) {
-    let errorMessage = '';
-    if (error.message === 'Timeout has occurred') {
-      errorMessage = 'request.timeout';
-    } else if (error.status === 400) {
-      errorMessage = JSON.parse(error._body).message;
-    } else if (error.status === 500) {
-      errorMessage = 'service.not.connect';
-    } else if (error.status === 401) {
-      errorMessage = 'tokenError';
-    } else if (error.status === 403) {
-      errorMessage =  '403 : ' + error.json().message;
-    }
-    return Observable.throw(errorMessage);
-  }
 }

@@ -46,4 +46,20 @@ export class HttpService {
     return this._request(RequestMethod.Delete, url, null, options);
   }
 
+  public handleError(error: any) {
+    let errorMessage = '';
+    if (error.message === 'Timeout has occurred') {
+      errorMessage = 'request.timeout';
+    } else if (error.status === 400) {
+      errorMessage = JSON.parse(error._body).message;
+    } else if (error.status === 500) {
+      errorMessage = 'service.not.connect';
+    } else if (error.status === 401) {
+      errorMessage = 'tokenError';
+    } else if (error.status === 403) {
+      errorMessage =  '403 : ' + error.json().message;
+    }
+    return Observable.throw(errorMessage);
+  }
+
 }

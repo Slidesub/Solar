@@ -4,21 +4,22 @@ import { HomeRouteModule } from './home.route';
 import { HomeComponent } from './home.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { HeaderComponent } from '../component/header/header.component';
-import { ArticleModule } from './article/article.module';
 import { HttpService } from '../service/http.service';
-
+import { MenuComponent } from '../component/menu/menu.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    HomeRouteModule,
     NgZorroAntdModule,
-    ArticleModule
+    HomeRouteModule
   ],
   exports: [
-    HomeComponent
   ],
-  declarations: [ HomeComponent, HeaderComponent ],
+  declarations: [
+    HomeComponent,
+    HeaderComponent,
+    MenuComponent
+  ],
   providers: [ HttpService ]
 })
 

@@ -17,8 +17,16 @@
       <nz-input formControlName="desc" [nzPlaceHolder]="'描述'" [nzSize]="'large'" name="desc"></nz-input>
     </div>
   </div>
+  
+  <div nz-form-item nz-row>  
+    <div nz-form-label nz-col [nzSpan]="5">
+      <label>封面</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="12">
+      <app-uploader [icon]='articleModel.icon'></app-uploader>
+    </div>
+  </div>
 
-<<<<<<< Updated upstream
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSpan]="6">
       <label>标签</label>
@@ -40,40 +48,6 @@
     </nz-select>
     </div>
   </div>
-
-  <div nz-form-item nz-row>
-    <div nz-form-control nz-col [nzSpan]="20" [nzOffset]="4">
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" [disabled]="!articleFrom.valid">Submit</button>
-=======
-  <div nz-form-item nz-row>  
-    <div nz-form-label nz-col [nzSpan]="5">
-      <label>封面</label>
-    </div>
-    <div nz-form-control nz-col [nzSpan]="12">
-      <app-uploader [icon]='articleModel.icon'></app-uploader>
-    </div>
-  </div>
-
-  <div nz-form-item nz-row>  
-    <div nz-form-label nz-col [nzSpan]="5">
-      <label nz-form-item-required>标签</label>
-    </div>
-    <div nz-form-control [nzValidateStatus]="getFormControl('desc')" nzHasFeedback nz-col [nzSpan]="12">
-      <nz-input formControlName="desc" [nzPlaceHolder]="'描述'" [nzSize]="'large'" name="desc"></nz-input>
-      <!-- <nz-select
-      [nzMode]="'multiple'"
-      [nzPlaceHolder]="'请选择标签'"
-      [(ngModel)]="selectedCategories"
-      [nzNotFoundContent]="'无法找到'">
-      <nz-option
-        *ngFor="let option of categories"
-        [nzLabel]="option.label"
-        [nzValue]="option.value"
-        [nzDisabled]="option.disabled">
-      </nz-option>
-    </nz-select> -->
-    </div>
-  </div>
   
   <div nz-form-item nz-row>  
     <div nz-form-label nz-col [nzSpan]="5">
@@ -85,11 +59,9 @@
     </div>
   </div>
 
-
   <div nz-form-item nz-row>
     <div nz-form-control nz-col [nzOffset]="5">
       <button nz-button [nzType]="'primary'" [nzSize]="'large'">Submit</button>
->>>>>>> Stashed changes
     </div>
   </div>
 </form>

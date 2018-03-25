@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 const SALT_WORK_FACTORY = 10; // 计算强度
 
 const UserSchema = new Schema({
-    username: {
+    name: {
         type: String,
         unique: false,
         require: false
@@ -17,7 +17,7 @@ const UserSchema = new Schema({
         unique: false,
         require: true
     },
-    phone: {
+    mobile: {
         type: String,
         unique: false,
         require: false
@@ -41,8 +41,19 @@ const UserSchema = new Schema({
         unique: false,
         require: false,
         default: Date.now()
-    }
+    },
+    created_by: {
+        type: Schema.Types.ObjectId,
+        unique: false,
+        require: false
+    },
+    updated_by: {
+        type: Schema.Types.ObjectId,
+        unique: false,
+        require: false
+    },
 });
+
 UserSchema.pre('save', function (next) {
     let user = this;
     // 当密码没有修改时不进行重复加密
@@ -105,4 +116,4 @@ UserSchema.statics.checkToken = async function (token) {
     }
     
 };
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema, 'user');

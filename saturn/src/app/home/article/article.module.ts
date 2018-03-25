@@ -13,9 +13,7 @@ import { UploaderComponent } from '../../component/uploader/uploader.component';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgZorroAntdModule.forRoot(),
+    NgZorroAntdModule,
     ArticleRouteModule
   ],
   exports: [ ],

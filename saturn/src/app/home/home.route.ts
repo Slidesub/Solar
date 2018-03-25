@@ -6,10 +6,12 @@ const HomeRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivate: [],
     children: [
-      { path: '', redirectTo: 'article', pathMatch: 'full' },
+      { path: '', redirectTo: 'user', pathMatch: 'full' },
       { path: 'guidance', loadChildren: './guidance/guidance.module#GuidanceModule' },
-      { path: 'article', loadChildren: './article/article.module#ArticleModule' },
+      { path: 'user', loadChildren: './user/user.module#UserModule' },
+      // { path: 'article', loadChildren: './article/article.module#ArticleModule' },
       { path: '**', redirectTo: 'guidance' }
     ]
   }
@@ -17,7 +19,7 @@ const HomeRoutes: Routes = [
 
 @NgModule({
   imports: [ RouterModule.forChild(HomeRoutes) ],
-  exports: [ RouterModule]
+  exports: [ RouterModule ]
 })
 
 export class HomeRouteModule { }

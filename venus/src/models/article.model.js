@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const markdown = require('markdown').markdown
 
 const ArticleSchema = new Schema({
     title: {
@@ -14,19 +13,11 @@ const ArticleSchema = new Schema({
         require: false
     },
     tags : {
-<<<<<<< Updated upstream
-        type: [Schema.Types.ObjectId],
-        unique: false,
-        require: false
-    },
-    icon : {
-=======
         type: [ Schema.Types.ObjectId ],
         unique: false,
         require: false
     },
     body: {
->>>>>>> Stashed changes
         type: String,
         unique: false,
         require: false
@@ -67,4 +58,4 @@ const ArticleSchema = new Schema({
 //     }
 //     return article;
 // }
-module.exports = mongoose.model('Article', ArticleSchema);
+module.exports = mongoose.model('Article', ArticleSchema, 'article');

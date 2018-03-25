@@ -10,7 +10,7 @@ const config = require('./config')
 const koajwt = require('koa-jwt');
 
 const index = require('./src/routes/index')
-const user = require('./src/routes/user')
+const user = require('./src/routes/user.route')
 const article = require('./src/routes/article.route')
 
 // error handler
