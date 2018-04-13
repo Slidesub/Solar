@@ -1,6 +1,5 @@
 const router = require('koa-router')()
 const UserCtrl = require('../ctrls/user.ctrl')
-const User = require('../models/user.model')
 
 router.prefix('/api/users')
 

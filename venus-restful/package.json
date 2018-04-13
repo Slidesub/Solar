@@ -1,10 +1,10 @@
 {
-  "name": "venus",
+  "name": "venus-restful",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node bin/www",
-    "dev": "./node_modules/.bin/nodemon bin/www & sass --watch public/scss:public/stylesheets",
+    "dev": "./node_modules/.bin/nodemon bin/www",
     "prd": "pm2 start bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib"
@@ -20,16 +20,26 @@
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
     "koa-views": "^6.1.4",
-    "pug": "^2.0.3"
+    "pug": "^2.0.0-rc.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.2.1",
     "koa-jwt": "^3.3.1",
     "mongoose": "^5.0.14",
-    "nodemon": "^1.17.3",
-    "nunjucks": "^3.1.2"
+    "nodemon": "^1.8.1"
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "presets": [
+          "es2015-node5"
+        ],
+        "plugins": [
+          "transform-async-to-generator",
+          "syntax-async-functions"
+        ]
+      }
+    }
   }
 }
