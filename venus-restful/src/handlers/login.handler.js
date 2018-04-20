@@ -13,12 +13,9 @@ class LoginHandler {
         } else if (!Util.isEmpty(email)) {
             user = await User.findOne({email: email});
         }
-        if (!Util.isEmpty(user)) {
-            let account = await Account.findOne({user_id: user._id});
-            if (!Util.isEmpty(account) && Account.compare(password)) {
-                ctx.state.user = user;
-                return new Resp(data={user: user, }).toJson();
-            }
+        if (!Util.isEmpty(user) && user.compare(password)) {
+            
+            return new Resp(data={user: user}).toJson();
         }
         return new Resp(msg='failed').toJson();
     }
