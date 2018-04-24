@@ -23,6 +23,8 @@
 
 * npm i --save-dev nunjucks
 * npm i --save-dev markdown
+* npm i --save-dev supervisor
+* npm i --save-dev log4js
 
 * npm markdown -v
 

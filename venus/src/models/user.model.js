@@ -85,26 +85,20 @@ UserSchema.methods.comparePW = async function (candidatePW) {
 };
 
 UserSchema.statics.signToken = async function (id) {
-    try {
-        const secret = getDefaultHmac();
-        let _user = await this.findOneAndUpdate({_id: id}, {secret: secret});
-        if (_user) {
-            let token = jwt.sign({id: id, secret: secret}, config.secret, {expiresIn: 3600});
-            let payload = jwt.verify(token, config.secret)
-            return token;
-        } else {
-            throw new Error({code: 0, msg: 'token 未通过验证'})
-        }
-    } catch (error) {
-        console.log(error);
-        throw error;
+    const secret = getDefaultHmac();
+    let _user = await this.findOneAndUpdate({_id: id}, {secret: secret});
+    if (_user) {
+        let token = jwt.sign({id: id, secret: secret}, config.secret, {expiresIn: 3600});
+        return token;
+    } else {
+        throw new Error({code: 0, msg: ''})
     }
 };
 
 UserSchema.statics.checkToken = async function (token) {
     try {
-        let payload = jwt.verify(token, config.secret)
-        let _user = await this.findOne({_id: payload.id});
+        let payload = jwt.verify(token)
+        let _user = await this.findOne({_id: payload.id})
         if (_user && _user.secret === payload.secret) {
             return _user;
         } else {

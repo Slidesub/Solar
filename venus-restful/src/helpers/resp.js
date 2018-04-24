@@ -1,5 +1,5 @@
 class Resp {
-    constructor(code=200, msg='success', data=None) {
+    constructor(code=200, msg='success', data=null) {
         this.code = code;
         this.msg = msg;
         this.data = data;

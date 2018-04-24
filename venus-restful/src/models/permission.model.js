@@ -4,17 +4,29 @@ const Schema = mongoose.Schema
 const PermissionSchema = new Schema({
     code: {
         type: String,
-        unique: true,
-        require: true
+        unique: false,
+        require: false
     },
     name: {
         type: String,
         unique: false,
-        require: true
+        require: false
     },
     desc: {
         type: String,
         unique: false,
         require: false
+    },
+    action: {
+        type: [ Schema.Types.ObjectId ],
+        unique: false,
+        require: false
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        unique: false,
+        require: false
     }
 });
+
+module.exports = mongoose.model('Permission', PermissionSchema, 'permission');

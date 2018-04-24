@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const ActionSchema = new Schema({
+const TagSchema = new Schema({
     code: {
         type: String,
         unique: false,
@@ -21,7 +21,7 @@ const ActionSchema = new Schema({
         type: Schema.Types.ObjectId,
         unique: false,
         require: false
-    }
+    },
 });
 
-module.exports = mongoose.model('Action', UserSchema, 'action');
+module.exports = mongoose.model('Tag', TagSchema, 'tag');

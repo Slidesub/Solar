@@ -1,14 +1,22 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
 const PermissionActionSchema = new Schema({
     permission_id: {
-        type: { type: Schema.Types.ObjectId, ref: 'permission' },
-        unique: true,
-        require: true
+        type: Schema.Types.ObjectId,
+        unique: false,
+        require: false
     },
     action_id: {
-        type: { type: Schema.Types.ObjectId, ref: 'action' },
-        unique: true,
-        require: true
+        type: Schema.Types.ObjectId,
+        unique: false,
+        require: false
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        unique: false,
+        require: false
     }
 });
 
-module.exports = mongoose.model('PermissionAcount', UserSchema, 'acount');
+module.exports = mongoose.model('PermissionAction', PermissionActionSchema, 'permission_action');
