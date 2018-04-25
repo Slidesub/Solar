@@ -13,8 +13,8 @@ export class HttpService {
 
   private _createHeaders(): Headers {
     let headers = new Headers();
-    let user = JSON.parse(localStorage.getItem('user'));
-    headers.set('token', user && user.token);
+    const user = JSON.parse(localStorage.getItem('user'));
+    headers.set('Authorization', 'Bearer' + user.token);
     return headers;
   }
 
@@ -49,15 +49,15 @@ export class HttpService {
   public handleError(error: any) {
     let errorMessage = '';
     if (error.message === 'Timeout has occurred') {
-      errorMessage = 'request.timeout';
+      errorMessage = 'request timeout';
     } else if (error.status === 400) {
       errorMessage = JSON.parse(error._body).message;
     } else if (error.status === 500) {
-      errorMessage = 'service.not.connect';
+      errorMessage = 'service error';
     } else if (error.status === 401) {
-      errorMessage = 'tokenError';
+      errorMessage = 'token error';
     } else if (error.status === 403) {
-      errorMessage =  '403 : ' + error.json().message;
+      errorMessage = JSON.parse(error._body).message;
     }
     return Observable.throw(errorMessage);
   }

@@ -42,6 +42,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "lodash": "^4.17.5",
+    "markdown-it": "^8.4.1",
     "ng-zorro-antd": "^0.7.0-beta.2",
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",

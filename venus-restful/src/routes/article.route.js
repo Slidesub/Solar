@@ -1,6 +1,5 @@
 const router = require('koa-router')()
 const ArticleHandler = require('../handlers/article.handler')
-const Handler = require('../handlers/handler')
 
 router.prefix('/articles')
 
