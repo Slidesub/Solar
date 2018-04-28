@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RequestOptions, RequestOptionsArgs, RequestMethod, Http, Request, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { isEmpty } from '../common/util';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class HttpService {
@@ -13,8 +15,10 @@ export class HttpService {
 
   private _createHeaders(): Headers {
     let headers = new Headers();
-    const user = JSON.parse(localStorage.getItem('user'));
-    headers.set('Authorization', 'Bearer' + user.token);
+    const token = localStorage.getItem('token');
+    if (!isEmpty(token)) {
+      headers.set('Authorization', 'Bearer ' + token);
+    }
     return headers;
   }
 
@@ -58,6 +62,8 @@ export class HttpService {
       errorMessage = 'token error';
     } else if (error.status === 403) {
       errorMessage = JSON.parse(error._body).message;
+    } else if (error.status === 404) {
+      errorMessage = error._body;
     }
     return Observable.throw(errorMessage);
   }

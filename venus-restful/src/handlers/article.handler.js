@@ -60,10 +60,17 @@ class ArticleHandler {
 
     static async list(ctx) {
         const data = ctx.query;
-        const pageSize = parseInt(data.pageSize);
-        const pageIndex = parseInt(data.pageIndex);
-        const artices = Article.list().skip(pagesize * (pageIndex - 1)).limit(pagesize)
-        return new Resp(200, 'success', {artices: artices}).toJson()
+        const search = data.search
+        let articles = []
+        if (data.size && data.index) {
+            const size = parseInt(data.size)
+            const index = parseInt(data.index)
+            articles = await Article.find().skip(size * (index - 1)).limit(size)
+                .populate({path: 'author', select: '_id name nickname phone', model: User}).exec()
+        } else {
+            articles = await Article.find()
+        }
+        return new Resp(200, 'success', {articles: articles}).toJson()
     }
 
 }

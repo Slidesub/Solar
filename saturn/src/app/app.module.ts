@@ -10,6 +10,8 @@ import { Http, HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './portal/auth/login/login.component';
 import { RegistComponent } from './portal/auth/regist/regist.component';
+import { LoginService } from './portal/auth/login/login.service';
+import { AuthGuard } from './portal/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { RegistComponent } from './portal/auth/regist/regist.component';
     NgZorroAntdModule.forRoot(),
     AppRoutesModule
   ],
-  providers: [ ],
+  providers: [ HttpService, AuthGuard, LoginService ],
   bootstrap: [
     AppComponent
   ]

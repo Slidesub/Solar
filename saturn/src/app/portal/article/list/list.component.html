@@ -1,3 +1,45 @@
-<p>
-  list works!
-</p>
+<div style="margin: 1rem;">
+  <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="operating" (click)="delete()">
+    Reload
+  </button>
+  <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
+</div>
+<div style="margin: 0 1rem;">
+  <nz-table
+    #articleTable
+    nzBordered
+    nzShowSizeChanger
+    nzShowQuickJumper
+    [nzData]="articles"
+    (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    [nzFrontPagination]="false"
+    [nzTotal]="total"
+    [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+
+    <thead>
+      <tr>
+        <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+        <th>Title</th>
+        <th>Desc</th>
+        <th>Tags</th>
+        <th>Author</th>
+        <th>Create Date</th>
+        <th>Update Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let article of articleTable.data">
+        <td nzShowCheckbox [(nzChecked)]="article.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>{{article.title}}</td>
+        <td>{{article.desc}}</td>
+        <td>{{article.tags}}</td>
+        <td>{{article.author}}</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

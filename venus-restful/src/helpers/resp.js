@@ -1,6 +1,6 @@
 class Resp {
-    constructor(code=200, msg='success', data=null) {
-        this.code = code;
+    constructor(status=200, msg='success', data=null) {
+        this.status = status;
         this.msg = msg;
         this.data = data;
     }
