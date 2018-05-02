@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../article.modle';
+import { ArticleModel } from '../article.modle';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { ArticleService } from '../article.service';
 
@@ -13,9 +13,9 @@ export class ListComponent implements OnInit {
   allChecked = false;
   disabledButton = true;
   checkedNumber = 0;
-  displayArticles: Array<Article> = [];
+  displayArticles: Array<ArticleModel> = [];
   operating = false;
-  articles: Array<Article>;
+  articles: Array<ArticleModel>;
   indeterminate = false;
 
   pageIndex = 1;
@@ -55,7 +55,7 @@ export class ListComponent implements OnInit {
     this.checkedNumber = this.articles.filter(value => value.checked).length;
   }
 
-  currentPageDataChange($event: Array<Article>): void {
+  currentPageDataChange($event: Array<ArticleModel>): void {
     this.displayArticles = $event;
   }
 

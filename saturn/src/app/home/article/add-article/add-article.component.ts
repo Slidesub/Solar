@@ -75,7 +75,7 @@ export class AddArticleComponent implements OnInit, AfterViewInit {
         this.articleFrom.controls[key].markAsDirty();
       }
     }
-    this.articleFrom.value.icon = this.uploaderComponent.icon;
+    this.articleFrom.value.icon = this.uploaderComponent;
     console.log(this.articleFrom.value);
   }
 

@@ -1,52 +1,45 @@
 import { Component, OnInit, Input } from '@angular/core';
-
 import { NzMessageService, UploadFile } from 'ng-zorro-antd';
+import { UploadModel } from './upload.model';
+import { Constant } from '../../common/constant';
+import { UploaderService } from './uploader.service';
 
 @Component({
   selector: 'app-uploader',
   templateUrl: './uploader.component.html',
   styleUrls: ['./uploader.component.less']
 })
-export class UploaderComponent implements OnInit {
 
-  constructor(private msg: NzMessageService) { }
+export class UploaderComponent implements OnInit {
+  _fileList: Array<UploadModel>;
+  @Input() counter: number;
+  action: string = Constant.URL_UPLOAD_IMAGE;
+  previewImage = '';
+  previewVisible = false;
+
+  @Input()
+  set fileList(fileList: Array<UploadModel>) {
+    this._fileList = fileList || [];
+  }
+  get fileList(): Array<UploadModel> {
+    return this._fileList;
+  }
+  constructor(private msg: NzMessageService, private uploaderService: UploaderService) { }
 
   ngOnInit() {
   }
 
-  uploadUrl: string = 'https://jsonplaceholder.typicode.com/posts/';
-  loading: boolean = false;
-  @Input() icon: string;
-
-  beforeUpload = (file: File) => {
-    const isJPG = file.type === 'image/jpeg';
-    if (!isJPG) {
-      this.msg.error('You can only upload JPG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      this.msg.error('Image must smaller than 2MB!');
-    }
-    return isJPG && isLt2M;
+  handlePreview = (file: UploadFile) => {
+    this.previewImage = file.url || file.thumbUrl;
+    this.previewVisible = true;
   }
 
-  private getBase64(img: File, callback: (img: any) => void) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-  }
-
-  handleChange(info: { file: UploadFile }) {
-    if (info.file.status === 'uploading') {
-      this.loading = true;
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      this.getBase64(info.file.originFileObj, (img: any) => {
-        this.loading = false;
-        this.icon = img;
-      });
-    }
+  handlerRequest = (file: UploadFile) => {
+    this.uploaderService.upload(file).subscribe(resp => {
+      console.log(resp);
+    },
+    err => {
+      this.msg.error('failed');
+    });
   }
 }

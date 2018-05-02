@@ -92,7 +92,7 @@ UserSchema.statics.sign = async function (id) {
 
 UserSchema.statics.verify = async function (token) {
     const payload = hmac.verify(token.split(' ')[1])
-    const user = await User.findOne({_id: payload.id})
+    const user = await this.findOne({_id: payload.id})
     if (user && user.secret === payload.secret) {
         return user;
     }

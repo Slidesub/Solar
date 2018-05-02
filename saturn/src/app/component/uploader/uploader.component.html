@@ -1,9 +1,15 @@
-<nz-upload class="avatar-uploader"
-    nzAction="{{uploadUrl}}"
-    nzName="icon"
-    [nzShowUploadList]="false"
-    [nzBeforeUpload]="beforeUpload"
-    (nzChange)="handleChange($event)">
-    <i *ngIf="!icon" class="anticon anticon-plus avatar-uploader-trigger"></i>
-    <img *ngIf="icon" [src]="icon" class="avatar">
-</nz-upload>
+<nz-upload
+    nzAction="{{ action }}"
+    nzListType="picture-card"
+    [(nzFileList)]="fileList"
+    [nzShowButton]="fileList.length < counter"
+    [nzCustomRequest]="handlerRequest"
+    [nzPreview]="handlePreview">
+    <i class="anticon anticon-plus"></i>
+    <div class="ant-upload-text">Upload</div>
+    </nz-upload>
+    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+    <ng-template #modalContent>
+        <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+    </ng-template>
+</nz-modal>

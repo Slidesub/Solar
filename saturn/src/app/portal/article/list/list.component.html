@@ -28,6 +28,7 @@
         <th>Author</th>
         <th>Create Date</th>
         <th>Update Date</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -36,9 +37,14 @@
         <td>{{article.title}}</td>
         <td>{{article.desc}}</td>
         <td>{{article.tags}}</td>
-        <td>{{article.author}}</td>
+        <td>{{article.author.nickname}}</td>
         <td></td>
         <td></td>
+        <td>
+          <a>delete</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a [routerLink]="['/article/edit']" [queryParams]="{id: article._id}">edit</a>
+        </td>
       </tr>
     </tbody>
   </nz-table>
