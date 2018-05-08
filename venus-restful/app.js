@@ -10,7 +10,7 @@ const log = require('./src/configs/log')
 const mongoose = require('mongoose')
 const jwt = require('koa-jwt')
 const config = require('./src/configs/config')
-const routes_v1 = require('./src/routes.v1')
+const routes_all = require('./src/routes')
 const errorHandler = require('./src/handlers/error.handler')
 
 onerror(app)
@@ -26,7 +26,7 @@ app.use(require('koa-static')(__dirname + '/public'))
 // app.use(views(__dirname + '/views', {
 //   extension: 'pug'
 // }))
-app.use(views(__dirname + '/src/views', {
+app.use(views(__dirname + '/views', {
   map: { html: 'nunjucks' }
 }))
 app.use(async (ctx, next) => {
@@ -47,9 +47,9 @@ app.use(errorHandler)
 app.use(jwt({
   secret: config.jwt.secret
 }).unless({
-  path: [/\/regist/, /\/login/, /\/logout/],
+  path: [/^\/$/, /\/regist/, /\/login/, /\/logout/],
 }))
 
-routes_v1(app)
+routes_all(app)
 
 module.exports = app

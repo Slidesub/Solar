@@ -9,6 +9,7 @@ import { isEmpty } from '../../../common/util';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TagService } from '../../tag/tag.service';
 
 @Component({
   selector: 'app-edit',
@@ -20,16 +21,25 @@ export class EditComponent implements OnInit {
   articleModel: ArticleModel = new ArticleModel();
   icons: UploadModel[];
   tags: TagModel[];
-  selectedTags: string[];
 
   constructor(private formBuilder: FormBuilder,
     private msg: NzMessageService,
     private notification: NzNotificationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private articleService: ArticleService) { }
+    private articleService: ArticleService,
+    private tagService: TagService) { }
 
   ngOnInit() {
+    // TAGS
+    this.tagService.list(0, 0, '').subscribe(resp => {
+      if (resp.msg === 'success') {
+        this.tags = resp.data.tags;
+      }
+    }, error => {
+      this.notification.blank('Error', error, { nzDuration: 0 });
+    });
+    // ARTICLE
     const id = this.activatedRoute.snapshot.queryParams['id'];
     if (!isEmpty(id)) {
       this.articleService.get(id).subscribe(resp => {
@@ -38,13 +48,15 @@ export class EditComponent implements OnInit {
             this.buildForm();
           }
         }, error => {
-          this.notification.blank('Error!', error, { nzDuration: 0 });
+          this.notification.blank('Error', error, { nzDuration: 0 });
       });
     }
     this.buildForm();
   }
 
   buildForm() {
+    this.icons = this.articleModel.icon || [];
+
     this.articleFrom = this.formBuilder.group({
       title: [
         this.articleModel.title, [ Validators.required ]
@@ -52,17 +64,18 @@ export class EditComponent implements OnInit {
       desc: [
         this.articleModel.desc, [ Validators.required ]
       ],
+      tags: [
+        this.articleModel.tags, [ Validators.required ]
+      ],
       body: [
         this.articleModel.body, [ Validators.required ]
-      ],
+      ]
     });
-    this.icons = this.articleModel.icon || [];
-    this.tags = this.articleModel.tags || [];
   }
 
   submitForm() {
     // this.articleFrom.value.icons = this.icons;
-    this.articleFrom.value.tags = this.selectedTags;
+    this.articleFrom.value.tags = this.articleModel.tags;
     if (isEmpty(this.articleModel._id)) {
       this.articleService.add(this.articleFrom.value).subscribe(resp => {
         this.msg.info(resp.msg);

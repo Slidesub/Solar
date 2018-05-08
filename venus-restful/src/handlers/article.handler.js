@@ -1,5 +1,6 @@
 const Article = require('../models/article.model')
 const User = require('../models/user.model')
+const Tag = require('../models/tag.model')
 const Resp = require('../helpers/resp.js')
 
 class ArticleHandler {
@@ -11,7 +12,7 @@ class ArticleHandler {
                 title: data.title,
                 desc: data.desc,
                 body: data.body,
-                // tags: data.tags,
+                tags: data.tags,
                 author: user.id
             }
             let article = await Article.create(doc)
@@ -41,7 +42,7 @@ class ArticleHandler {
                 title: data.title,
                 desc: data.desc,
                 body: data.body,
-                // tags: data.tags,
+                tags: data.tags,
                 author: user.id
             }
             let article = await Article.update({_id: ctx.params.id}, doc)
@@ -66,7 +67,8 @@ class ArticleHandler {
             const size = parseInt(data.size)
             const index = parseInt(data.index)
             articles = await Article.find().skip(size * (index - 1)).limit(size)
-                .populate({path: 'author', select: '_id name nickname phone', model: User}).exec()
+                .populate({path: 'author', select: '_id nickname', model: User})
+                .populate({path: 'tags', select: '_id code name', model: Tag}).exec()
         } else {
             articles = await Article.find()
         }

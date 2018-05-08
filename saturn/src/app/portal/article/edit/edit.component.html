@@ -32,8 +32,8 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired nzFor="tags">tags</nz-form-label>
         <nz-form-control nz-col [nzSpan]="14">
-          <nz-select nzMode="multiple" style="width: 100%;" [ngModelOptions]="{standalone: true}" nzPlaceHolder="标签" [(ngModel)]="selectedTags">
-            <nz-option *ngFor="let tag of tags" [nzLabel]="tag.name" [nzValue]="tag.code">
+          <nz-select nzMode="multiple" style="width: 100%;" [ngModelOptions]="{standalone: true}" nzPlaceHolder="标签" [(ngModel)]="articleModel.tags">
+            <nz-option *ngFor="let tag of tags" [nzLabel]="tag.code" [nzValue]="tag._id">
             </nz-option>
           </nz-select>
         </nz-form-control>

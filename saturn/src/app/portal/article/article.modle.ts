@@ -7,7 +7,7 @@ export class ArticleModel {
     desc: string;
     icon: Array<UploadModel>;
     body: string;
-    tags: Array<TagModel>;
+    tags: Array<any>;
     author: string;
     checked: boolean;
 }

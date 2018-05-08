@@ -9,6 +9,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ArticleService } from './article.service';
 import { UploaderComponent } from '../../component/uploader/uploader.component';
 import { UploaderService } from '../../component/uploader/uploader.service';
+import { TagService } from '../tag/tag.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { UploaderService } from '../../component/uploader/uploader.service';
   ],
   providers: [
     ArticleService,
+    TagService,
     UploaderService
   ]
 })

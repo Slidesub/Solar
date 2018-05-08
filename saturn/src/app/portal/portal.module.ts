@@ -15,7 +15,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
   declarations: [
     HeaderComponent,
     MenuComponent,
-    PortalComponent
+    PortalComponent,
   ]
 })
 export class PortalModule { }

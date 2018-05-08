@@ -40,3 +40,25 @@
 * permisson_action
 * role_permisson_action
 
+# Nginx设置
+server {
+    listen 80;
+    listen [::]:80;
+    server_name unicome.org;
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_pass http://127.0.0.1:4200;
+    }
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name api.unicome.org;
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_pass http://127.0.0.1:3000;
+    }
+}

@@ -1,5 +1,6 @@
 const Resp = require('../helpers/resp.js')
 const Tag = require('../models/tag.model')
+const User = require('../models/user.model')
 
 class TagHandler {
     static async add (ctx) {
@@ -10,6 +11,7 @@ class TagHandler {
                 code: data.code,
                 name: data.name,
                 desc: data.desc,
+                tags: data.tags,
                 author: user.id
             }
             let tag = await Tag.create(doc)
@@ -23,7 +25,8 @@ class TagHandler {
     static async delete(ctx) {
         const user = await User.verify(ctx.headers.authorization)
         if (user) {
-            let tag = await Tag.deleteOne({_id: ctx.params.id})
+            const ids = ctx.params.ids.split(',')
+            let tag = await Tag.remove({'_id': {$in: ids}})
             if (tag) {
                 return new Resp(200, 'success').toJson()
             }
@@ -56,10 +59,18 @@ class TagHandler {
 
     static async list(ctx) {
         const data = ctx.query;
-        const pageSize = parseInt(data.pageSize);
-        const pageIndex = parseInt(data.pageIndex);
-        const tags = Tag.list().skip(pagesize * (pageIndex - 1)).limit(pagesize)
-        return new Resp(200, 'success', {tags: tags}).toJson()
+        const search = data.search
+        let tags = []
+        let count = await Tag.count()
+        if (data.size && data.index) {
+            const size = parseInt(data.size)
+            const index = parseInt(data.index)
+            tags = await Tag.find().skip(size * (index - 1)).limit(size)
+                .populate({path: 'author', select: '_id nickname', model: User}).exec()
+        } else {
+            tags = await Tag.find()
+        }
+        return new Resp(200, 'success', {tags: tags, count: count}).toJson()
     }
 }
 

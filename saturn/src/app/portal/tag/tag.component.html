@@ -1,16 +1,18 @@
 <div style="margin: 1rem;">
-  <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="operating" (click)="delete()">
-    Reload
+  <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="operating" (click)="delete(true)">
+    Delete
   </button>
-  <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
+  <button nz-button [nzType]="'primary'" [nzLoading]="operating" (click)="add()">
+    Add
+  </button>
 </div>
 <div style="margin: 0 1rem;">
   <nz-table
-    #articleTable
+    #tagTable
     nzBordered
     nzShowSizeChanger
     nzShowQuickJumper
-    [nzData]="articles"
+    [nzData]="tags"
     (nzCurrentPageDataChange)="currentPageDataChange($event)"
     [nzFrontPagination]="false"
     [nzTotal]="total"
@@ -22,9 +24,9 @@
     <thead>
       <tr>
         <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
-        <th>Title</th>
+        <th>Code</th>
+        <th>Name</th>
         <th>Desc</th>
-        <th>Tags</th>
         <th>Author</th>
         <th>Create Date</th>
         <th>Update Date</th>
@@ -32,23 +34,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let article of articleTable.data">
-        <td nzShowCheckbox [(nzChecked)]="article.checked" (nzCheckedChange)="refreshStatus($event)"></td>
-        <td>{{article.title}}</td>
-        <td>{{article.desc}}</td>
-        <td>
-          <span *ngFor="let tag of article.tags; index as i">
-            {{tag.code}}
-            <span *ngIf="i !== article.tags.length - 1">,</span>
-          </span>
-        </td>
-        <td>{{article.author.nickname}}</td>
+      <tr *ngFor="let tag of tagTable.data">
+        <td nzShowCheckbox [(nzChecked)]="tag.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>{{tag.code}}</td>
+        <td>{{tag.name}}</td>
+        <td>{{tag.desc}}</td>
+        <td>{{tag.author.nickname}}</td>
         <td></td>
         <td></td>
         <td>
-          <a>delete</a>
+          <nz-popconfirm [nzTitle]="'Are you sure?'" (nzOnConfirm)="delete(false, tag._id)" (nzOnCancel)="cancel()">
+            <a nz-popconfirm>Delete</a>
+          </nz-popconfirm>
           <nz-divider nzType="vertical"></nz-divider>
-          <a [routerLink]="['/article/edit']" [queryParams]="{id: article._id}">edit</a>
+          <a (click)="edit(tag)">edit</a>
         </td>
       </tr>
     </tbody>

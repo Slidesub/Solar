@@ -1,14 +1,14 @@
 const router = require('koa-router')()
 const TagHandler = require('../handlers/tag.handler')
 
-router.prefix('/articles')
+router.prefix('/tags')
 
 router.post('/', async (ctx, next) => {
     const result = await TagHandler.add(ctx)
     ctx.body = result
 })
 
-router.delete('/:id', async (ctx, next) => {
+router.delete('/:ids', async (ctx, next) => {
     const result = await TagHandler.delete(ctx)
     ctx.body = result
 })
