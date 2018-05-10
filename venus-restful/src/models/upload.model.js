@@ -1,8 +1,18 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const ArticleSchema = new Schema({
-    title: {
+const UploadSchema = new Schema({
+    name: {
+        type: String,
+        unique: false,
+        require: false
+    },
+    type: {
+        type: String,
+        unique: false,
+        require: false
+    },
+    size: {
         type: String,
         unique: false,
         require: false
@@ -12,27 +22,16 @@ const ArticleSchema = new Schema({
         unique: false,
         require: false
     },
-    icon: {
-        type: Schema.Types.ObjectId,
-        unique: false,
-        require: false
-    },
-    body: {
+    url: {
         type: String,
         unique: false,
         require: false
     },
-    tags: {
-        type: [ Schema.Types.ObjectId ],
+    path: {
+        type: String,
         unique: false,
         require: false
-    },
-    author: {
-        type: Schema.Types.ObjectId,
-        unique: false,
-        require: false
-    },
-
+    }
 });
 
-module.exports = mongoose.model('Article', ArticleSchema, 'article');
+module.exports = mongoose.model('Upload', UploadSchema, 'upload');

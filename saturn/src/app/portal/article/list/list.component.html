@@ -22,6 +22,7 @@
     <thead>
       <tr>
         <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+        <th>icon</th>
         <th>Title</th>
         <th>Desc</th>
         <th>Tags</th>
@@ -34,6 +35,9 @@
     <tbody>
       <tr *ngFor="let article of articleTable.data">
         <td nzShowCheckbox [(nzChecked)]="article.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>
+          <nz-avatar [nzSrc]="article.icon.url" [nzShape]="'square'" [nzSize]="'large'" [nzIcon]="'anticon anticon-user'"></nz-avatar>
+        </td>
         <td>{{article.title}}</td>
         <td>{{article.desc}}</td>
         <td>

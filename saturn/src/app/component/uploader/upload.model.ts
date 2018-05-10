@@ -1,6 +1,7 @@
 export class UploadModel {
-    id: string;
+    _id: string;
     name: string;
-    status: string;
     url: string;
+    status: string = 'done';
+    response = {};
 }

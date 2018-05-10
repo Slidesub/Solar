@@ -13,7 +13,7 @@ export class HttpService {
     this.rootUrl = '/';
   }
 
-  private _createHeaders(): Headers {
+  public createHeaders(): Headers {
     let headers = new Headers();
     const token = localStorage.getItem('token');
     if (!isEmpty(token)) {
@@ -32,7 +32,7 @@ export class HttpService {
         method: method,
         url: url,
         body: body,
-        headers: this._createHeaders()
+        headers: this.createHeaders()
       }, options));
       return this._http.request(new Request(requestOptions));
   }

@@ -1,6 +1,7 @@
 const Article = require('../models/article.model')
 const User = require('../models/user.model')
 const Tag = require('../models/tag.model')
+const Upload = require('../models/upload.model')
 const Resp = require('../helpers/resp.js')
 
 class ArticleHandler {
@@ -12,6 +13,7 @@ class ArticleHandler {
                 title: data.title,
                 desc: data.desc,
                 body: data.body,
+                icon: data.icon,
                 tags: data.tags,
                 author: user.id
             }
@@ -41,6 +43,7 @@ class ArticleHandler {
             const doc = {
                 title: data.title,
                 desc: data.desc,
+                icon: data.icon,
                 body: data.body,
                 tags: data.tags,
                 author: user.id
@@ -55,6 +58,7 @@ class ArticleHandler {
 
     static async get(ctx) {
         const article = await Article.findOne({_id: ctx.params.id})
+            .populate({path: 'icon', select: '_id name url', model: Upload})
             .populate({path: 'author', select: '_id name nickname phone', model: User}).exec()
         return new Resp(200, 'success', {article: article}).toJson()
     }
@@ -67,6 +71,7 @@ class ArticleHandler {
             const size = parseInt(data.size)
             const index = parseInt(data.index)
             articles = await Article.find().skip(size * (index - 1)).limit(size)
+                .populate({path: 'icon', select: '_id name url', model: Upload})
                 .populate({path: 'author', select: '_id nickname', model: User})
                 .populate({path: 'tags', select: '_id code name', model: Tag}).exec()
         } else {

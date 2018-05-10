@@ -13,5 +13,5 @@ export class Constant {
     static URL_TAG_UPDATE = 'api/v1/tags';
     static URL_TAG_DELETE = 'api/v1/tags';
 
-    static URL_UPLOAD_IMAGE = 'api/v1/upload';
+    static URL_UPLOAD_IMAGE = 'api/upload';
 }

@@ -57,9 +57,17 @@ class ActionHandler {
 
     static async list(ctx) {
         const data = ctx.query;
-        const pageSize = parseInt(data.pageSize);
-        const pageIndex = parseInt(data.pageIndex);
-        const tags = Action.list().skip(pagesize * (pageIndex - 1)).limit(pagesize)
-        return new Resp(200, 'success', {tags: tags}).toJson()
+        const search = data.search
+        let actions = []
+        let count = await Action.count()
+        if (data.size && data.index && parseInt(data.size) > 0) {
+            const size = parseInt(data.size)
+            const index = parseInt(data.index)
+            actions = await Action.find().skip(size * (index - 1)).limit(size)
+                .populate({path: 'author', select: '_id nickname', model: User}).exec()
+        } else {
+            actions = await Action.find()
+        }
+        return new Resp(200, 'success', {actions: actions, count: count}).toJson()
     }
 }

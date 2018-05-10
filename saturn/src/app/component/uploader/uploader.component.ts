@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { UploadModel } from './upload.model';
 import { Constant } from '../../common/constant';
 import { UploaderService } from './uploader.service';
+import { HttpRequest, HttpResponse, HttpClient } from '@angular/common/http';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-uploader',
@@ -11,20 +13,19 @@ import { UploaderService } from './uploader.service';
 })
 
 export class UploaderComponent implements OnInit {
-  _fileList: Array<UploadModel>;
-  @Input() counter: number;
+  @Input() counter: number = 1;
+  @Input() limit: number = 0;
+  @Input() multiple: boolean = false;
+  @Input() fileList: UploadFile[] = [];
   action: string = Constant.URL_UPLOAD_IMAGE;
   previewImage = '';
   previewVisible = false;
+  @Output() fileListChange = new EventEmitter<UploadFile[]>();
 
-  @Input()
-  set fileList(fileList: Array<UploadModel>) {
-    this._fileList = fileList || [];
-  }
-  get fileList(): Array<UploadModel> {
-    return this._fileList;
-  }
-  constructor(private msg: NzMessageService, private uploaderService: UploaderService) { }
+  constructor(
+    private http: HttpClient,
+    private msg: NzMessageService,
+    private uploaderService: UploaderService) { }
 
   ngOnInit() {
   }
@@ -34,12 +35,24 @@ export class UploaderComponent implements OnInit {
     this.previewVisible = true;
   }
 
-  handlerRequest = (file: UploadFile) => {
-    this.uploaderService.upload(file).subscribe(resp => {
+  handlerRequest = (upload: UploadFile) => {
+    this.uploaderService.upload(upload.file).subscribe(resp => {
       console.log(resp);
     },
     err => {
       this.msg.error('failed');
     });
+  }
+
+  handleHeaders(info: any) {
+  }
+
+  handleChange(info: any): void {
+    if (info.file.status === 'done' || info.file.status === 'removed') {
+      this.fileListChange.emit(this.fileList);
+    }
+  }
+
+  handleRemove(): void {
   }
 }

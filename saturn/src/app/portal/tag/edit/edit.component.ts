@@ -50,7 +50,7 @@ export class EditComponent implements OnInit {
 
   add() {
     if (this.isEdit) {
-      this.tagForm.value._id = this.tagModel._id;
+      this.tagForm.value.id = this.tagModel._id;
     }
     this.modal.close({tag: this.tagForm.value, isEdit: this.isEdit});
   }

@@ -19,7 +19,7 @@ import { TagService } from '../../tag/tag.service';
 export class EditComponent implements OnInit {
   articleFrom: FormGroup;
   articleModel: ArticleModel = new ArticleModel();
-  icons: UploadModel[];
+  icons: any[] = [];
   tags: TagModel[];
 
   constructor(private formBuilder: FormBuilder,
@@ -55,8 +55,16 @@ export class EditComponent implements OnInit {
   }
 
   buildForm() {
-    this.icons = this.articleModel.icon || [];
-
+    if (this.articleModel.icon) {
+      this.articleModel.icon.status = 'done';
+      this.articleModel.icon.response = {
+        data: {
+          id: this.articleModel.icon._id,
+          url: this.articleModel.icon.url,
+        }
+      };
+      this.icons.push(this.articleModel.icon);
+    }
     this.articleFrom = this.formBuilder.group({
       title: [
         this.articleModel.title, [ Validators.required ]
@@ -74,7 +82,11 @@ export class EditComponent implements OnInit {
   }
 
   submitForm() {
-    // this.articleFrom.value.icons = this.icons;
+    if ( this.icons[0].status !== 'done') {
+      this.msg.error('icon upload failed');
+      return;
+    }
+    this.articleFrom.value.icon = this.icons[0].response.data.id;
     this.articleFrom.value.tags = this.articleModel.tags;
     if (isEmpty(this.articleModel._id)) {
       this.articleService.add(this.articleFrom.value).subscribe(resp => {

@@ -62,7 +62,7 @@ class TagHandler {
         const search = data.search
         let tags = []
         let count = await Tag.count()
-        if (data.size && data.index) {
+        if (data.size && data.index && parseInt(data.size) > 0) {
             const size = parseInt(data.size)
             const index = parseInt(data.index)
             tags = await Tag.find().skip(size * (index - 1)).limit(size)

@@ -4,6 +4,9 @@ const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+const koaBody = require('koa-body');
+var cors = require('koa2-cors');
+
 const logger = require('koa-logger')
 const log = require('./src/configs/log')
 
@@ -15,10 +18,11 @@ const errorHandler = require('./src/handlers/error.handler')
 
 onerror(app)
 
-app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
-}))
-
+// app.use(bodyparser({
+//   enableTypes:['json', 'form', 'text']
+// }))
+app.use(cors());
+app.use(koaBody({ multipart: true }))
 app.use(json())
 // log.use(app)
 app.use(logger())
@@ -47,7 +51,7 @@ app.use(errorHandler)
 app.use(jwt({
   secret: config.jwt.secret
 }).unless({
-  path: [/^\/$/, /\/regist/, /\/login/, /\/logout/],
+  path: [/^\/$/, /\/regist/, /\/login/, /\/logout/, /^\/upload$/],
 }))
 
 routes_all(app)

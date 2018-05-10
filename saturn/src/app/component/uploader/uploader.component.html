@@ -1,10 +1,13 @@
 <nz-upload
-    nzAction="{{ action }}"
+    nzAction="http://127.0.0.1:2999/upload"
     nzListType="picture-card"
     [(nzFileList)]="fileList"
     [nzShowButton]="fileList.length < counter"
-    [nzCustomRequest]="handlerRequest"
-    [nzPreview]="handlePreview">
+    [nzMultiple]="multiple"
+    [nzLimit]="limit"
+    [nzPreview]="handlePreview"
+    (nzChange)="handleChange($event)"
+    [nzHeaders]="handleHeaders">
     <i class="anticon anticon-plus"></i>
     <div class="ant-upload-text">Upload</div>
     </nz-upload>

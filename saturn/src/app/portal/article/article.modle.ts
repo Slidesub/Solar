@@ -5,7 +5,7 @@ export class ArticleModel {
     _id: string;
     title: string;
     desc: string;
-    icon: Array<UploadModel>;
+    icon: UploadModel;
     body: string;
     tags: Array<any>;
     author: string;

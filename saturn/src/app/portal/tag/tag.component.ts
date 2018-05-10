@@ -96,7 +96,7 @@ export class TagComponent implements OnInit {
 
   openPopover(tagInfo?) {
     const modal = this.nzModalService.create({
-      nzTitle: 'Add Tag',
+      nzTitle: 'Tag',
       nzContent: EditComponent,
       nzComponentParams: {
         tagInfo
