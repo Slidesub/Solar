@@ -12,6 +12,7 @@ const PortalRoutes: Routes = [
       { path: 'guidance', loadChildren: './guidance/guidance.module#GuidanceModule' },
       { path: 'article', loadChildren: './article/article.module#ArticleModule' },
       { path: 'tag', loadChildren: './tag/tag.module#TagModule' },
+      { path: 'action', loadChildren: './page/page.module#PageModule' },
       { path: 'media', loadChildren: './media/media.module#MediaModule' },
       { path: '**', redirectTo: 'guidance' }
     ]

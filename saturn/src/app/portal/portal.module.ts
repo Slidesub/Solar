@@ -5,6 +5,7 @@ import { PortalComponent } from './portal.component';
 import { HeaderComponent } from '../component/header/header.component';
 import { MenuComponent } from '../component/menu/menu.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { ActionComponent } from './action/action.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
     HeaderComponent,
     MenuComponent,
     PortalComponent,
+    ActionComponent,
   ]
 })
 export class PortalModule { }
