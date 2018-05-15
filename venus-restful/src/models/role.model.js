@@ -17,11 +17,6 @@ const RoleSchema = new Schema({
         unique: false,
         require: false
     },
-    permission: {
-        type: [ Schema.Types.ObjectId ],
-        unique: false,
-        require: false
-    },
     author: {
         type: Schema.Types.ObjectId,
         unique: false,

@@ -30,11 +30,11 @@
 
 # 数据库设计
 
-* acount
-* user
-* role
-* permisson
-* action
+* user:
+* role: admin/guest/...
+* permisson: 
+    * user management/tag management/article management/role management/permission management/action management
+* action： CRUD
 
 * user_role
 * permisson_action

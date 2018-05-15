@@ -17,11 +17,6 @@ const PermissionSchema = new Schema({
         unique: false,
         require: false
     },
-    action: {
-        type: [ Schema.Types.ObjectId ],
-        unique: false,
-        require: false
-    },
     author: {
         type: Schema.Types.ObjectId,
         unique: false,

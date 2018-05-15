@@ -2,12 +2,17 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const RolePermissionActionSchema = new Schema({
-    role_id: {
+    role: {
         type: Schema.Types.ObjectId,
         unique: false,
         require: false
     },
-    permission_action_id: {
+    permission: {
+        type: Schema.Types.ObjectId,
+        unique: false,
+        require: false
+    },
+    action: {
         type: Schema.Types.ObjectId,
         unique: false,
         require: false

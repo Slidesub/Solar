@@ -53,7 +53,7 @@ const UserSchema = new Schema({
         require: false,
         default: ''
     },
-    role: {
+    roles: {
         type: [ Schema.Types.ObjectId ],
         unique: false,
         require: false

@@ -1,5 +1,6 @@
 const Resp = require('../helpers/resp.js')
 const Action = require('../models/action.model')
+const User = require('../models/user.model')
 
 class ActionHandler {
     static async add (ctx) {
@@ -23,7 +24,8 @@ class ActionHandler {
     static async delete(ctx) {
         const user = await User.verify(ctx.headers.authorization)
         if (user) {
-            let action = await Action.deleteOne({_id: ctx.params.id})
+            const ids = ctx.params.ids.split(',')
+            let action = await Action.remove({'_id': {$in: ids}})
             if (action) {
                 return new Resp(200, 'success').toJson()
             }
@@ -51,7 +53,6 @@ class ActionHandler {
 
     static async get(ctx) {
         const action = await Action.findOne({_id: ctx.params.id})
-            .populate({path: 'author', select: '_id name nickname phone', model: User}).exec()
         return new Resp(200, 'success', {action: action}).toJson()
     }
 
@@ -71,3 +72,5 @@ class ActionHandler {
         return new Resp(200, 'success', {actions: actions, count: count}).toJson()
     }
 }
+
+module.exports = ActionHandler

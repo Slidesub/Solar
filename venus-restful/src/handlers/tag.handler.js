@@ -11,7 +11,6 @@ class TagHandler {
                 code: data.code,
                 name: data.name,
                 desc: data.desc,
-                tags: data.tags,
                 author: user.id
             }
             let tag = await Tag.create(doc)
