@@ -17,6 +17,12 @@ router.get('/json', async (ctx, next) => {
   }
 })
 
+router.post('/post', async (ctx, next) => {
+  ctx.body = {
+    title: 'koa2 json'
+  }
+})
+
 router.post('/upload', async (ctx, next) => {
   const result = await UploadHandler.upload(ctx);
   ctx.body = result;

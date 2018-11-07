@@ -51,7 +51,7 @@ app.use(errorHandler)
 app.use(jwt({
   secret: config.jwt.secret
 }).unless({
-  path: [/^\/$/, /\/regist/, /\/login/, /\/logout/, /^\/upload$/],
+  path: [/^\/$/, /\/post/, /\/regist/, /\/login/, /\/logout/, /^\/upload$/],
 }))
 
 routes_all(app)

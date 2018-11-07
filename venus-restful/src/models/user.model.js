@@ -41,6 +41,12 @@ const UserSchema = new Schema({
         require: false,
         default: ''
     },
+    active: {
+        type: Boolean,
+        unique: false,
+        require: false,
+        default: false
+    },
     open_id: {
         type: String,
         unique: false,

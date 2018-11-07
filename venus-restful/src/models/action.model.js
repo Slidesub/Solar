@@ -24,4 +24,4 @@ const ActionSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Action', UserSchema, 'action');
+module.exports = mongoose.model('Action', ActionSchema, 'action');
